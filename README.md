@@ -1,14 +1,14 @@
 # RevStay
 
-Application Overview
+## Application Overview
 
 The RevStay Application project aims to develop a secure, user-friendly, and efficient application that
 allows users to search for hotels, make reservations, and manage their bookings. The application will
 cater to both individual travelers and hotel owners. The completion of the project will include a
 functional and intuitive application, a technical presentation, and associated diagrams.
 
-Core Functional Scope
-User account:
+## Core Functional Scope
+### User account:
 As a user, I should be able to:
 
 1. Register on the platform. *
@@ -36,8 +36,8 @@ and number of guests. *
 11. Make payments securely through integrated payment gateways.
 
 
-Hotel Owner Account:
-Asa hotel owner, I should be able to:
+### Hotel Owner Account:
+As a hotel owner, I should be able to:
 
 1. Register as a seller with email, password, and business details. *
 
@@ -49,6 +49,7 @@ availability. *
 4. Receive notifications for new bookings and reservation updates.
 
 5. View and manage reservations, including accepting or rejecting bookings. *
+
 6. Respond to user reviews and feedback.
 
 7. Manage room inventory and availability. *
