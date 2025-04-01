@@ -17,6 +17,10 @@ public class Reservation {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     @Column(nullable = false)
     private Date checkInDate;
     @Column(nullable = false)
