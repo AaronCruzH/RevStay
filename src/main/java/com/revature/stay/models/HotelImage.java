@@ -14,7 +14,7 @@ public class HotelImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int imageId;
+    private int hotelImageId;
 
     @Column(nullable = false)
     private String name;
@@ -33,19 +33,19 @@ public class HotelImage {
 
     }
 
-    public HotelImage(int imageId, String name, String description, String url) {
-        this.imageId = imageId;
+    public HotelImage(String name, String description, String url, Hotel hotel) {
         this.name = name;
         this.description = description;
         this.url = url;
+        this.hotel = hotel;
     }
 
-    public int getImageId() {
-        return imageId;
+    public int getHotelImageId() {
+        return hotelImageId;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setHotelImageId(int hotelImageId) {
+        this.hotelImageId = hotelImageId;
     }
 
     public String getName() {
@@ -70,5 +70,13 @@ public class HotelImage {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }
