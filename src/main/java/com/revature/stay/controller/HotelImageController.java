@@ -1,6 +1,5 @@
 package com.revature.stay.controller;
 
-import com.revature.stay.dtos.request.HotelImageDTO;
 import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.HotelImage;
 import com.revature.stay.services.HotelImageService;
@@ -61,7 +60,7 @@ public class HotelImageController {
     }
 
     @PutMapping("{hotelImageId}")
-    public Optional<HotelImage> updateHotelHandler(@PathVariable int hotelId,@PathVariable int hotelImageId, @RequestBody HotelImageDTO updatedHotel, HttpSession session) {
+    public Optional<HotelImage> updateHotelHandler(@PathVariable int hotelId,@PathVariable int hotelImageId, @RequestBody HotelImage updatedHotel, HttpSession session) {
 //        if (session.getAttribute("userId") == null) {
 //            throw new UnauthenticatedException("User is not authenticated");
 //        }

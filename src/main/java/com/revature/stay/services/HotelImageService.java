@@ -1,6 +1,5 @@
 package com.revature.stay.services;
 
-import com.revature.stay.dtos.request.HotelImageDTO;
 import com.revature.stay.models.Hotel;
 import com.revature.stay.models.HotelImage;
 import com.revature.stay.repos.HotelDAO;
@@ -60,7 +59,7 @@ public class HotelImageService {
     }
 
     // PUT
-    public Optional<HotelImage> updateHotelImage(int hotelId,int hotelImageId, HotelImageDTO updateHotelImage) {
+    public Optional<HotelImage> updateHotelImage(int hotelId,int hotelImageId, HotelImage updateHotelImage) {
         return hotelImageDAO.findByHotelImageIdAndHotel_HotelId(hotelImageId,hotelId).map(hotelImage -> {
            hotelImage.setName(updateHotelImage.getName());
            hotelImage.setDescription(updateHotelImage.getDescription());
