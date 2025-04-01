@@ -14,11 +14,14 @@ public class Hotel {
 
     @ManyToMany
     @JoinTable(
-            name="room_inventory",
+            name = "room_inventory",
             joinColumns = @JoinColumn(name = "hotel_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id")
     )
     private Set<Room> rooms;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 
     @Column(nullable = false)
     private String name;
