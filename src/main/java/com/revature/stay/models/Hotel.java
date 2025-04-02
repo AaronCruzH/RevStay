@@ -3,84 +3,136 @@ package com.revature.stay.models;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "hotelsTest")
+@Table(name = "hotels")
 public class Hotel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int hotelID;
-
-    @ManyToMany
-    @JoinTable(
-            name = "room_inventory",
-            joinColumns = @JoinColumn(name = "hotel_id"),
-            inverseJoinColumns = @JoinColumn(name = "room_id")
-    )
-    private Set<Room> rooms;
-
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> reservations;
+    private int hotelId;
 
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String location;
-    @Column(nullable = false)
-    private float priceRange;
-    @Column(nullable = false)
-    private String amenities;
 
-    public void setHotelID(int hotelID) {
-        this.hotelID = hotelID;
+    @Column(nullable = false, length = 30)
+    private String Country;
+
+    @Column(nullable = false, length = 30)
+    private String State;
+
+    @Column(nullable = false, length = 30)
+    private String City;
+
+    @Column(nullable = false)
+    private String street;
+
+    @Column(nullable = false, length = 10)
+    private String houseNumber;
+
+    @Column(nullable = false, length = 10)
+    private String postalCode;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HotelAmenity> amenities;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HotelImage> images;
+
+    public Hotel() {
+
     }
 
-    public void setName(String name) {
+    public Hotel(int hotelId, String name, String country, String state, String city, String street, String houseNumber, String postalCode, List<HotelAmenity> amenities, List<HotelImage> images) {
+        this.hotelId = hotelId;
         this.name = name;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setPriceRange(float priceRange) {
-        this.priceRange = priceRange;
-    }
-
-    public void setAmenities(String amenities) {
+        Country = country;
+        State = state;
+        City = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.postalCode = postalCode;
         this.amenities = amenities;
+        this.images = images;
     }
 
-    public int getHotelID() {
-        return hotelID;
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getLocation() {
-        return location;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public float getPriceRange() {
-        return priceRange;
+    public String getCountry() {
+        return Country;
     }
 
-    public String getAmenities() {
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public List<HotelAmenity> getAmenities() {
         return amenities;
     }
 
-    public Hotel(int hotelID, Set<Room> rooms, String name, String location, float priceRange, String amenities) {
-        this.hotelID = hotelID;
-        this.rooms = rooms;
-        this.name = name;
-        this.location = location;
-        this.priceRange = priceRange;
+    public void setAmenities(List<HotelAmenity> amenities) {
         this.amenities = amenities;
     }
 
-    public Hotel() {
+    public List<HotelImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<HotelImage> images) {
+        this.images = images;
     }
 }
