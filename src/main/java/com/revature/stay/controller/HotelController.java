@@ -1,12 +1,9 @@
 package com.revature.stay.controller;
 
 
-import com.revature.stay.dtos.response.HotelDetailsDTO;
-import com.revature.stay.exceptions.ForbiddenActionException;
+import com.revature.stay.dto.request.HotelFilterDTO;
 import com.revature.stay.exceptions.ResourceNotFoundException;
-import com.revature.stay.exceptions.UnauthenticatedException;
 import com.revature.stay.models.Hotel;
-import com.revature.stay.models.Role;
 import com.revature.stay.services.HotelService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,13 +51,9 @@ public class HotelController {
         ()-> new ResourceNotFoundException("No hotel with id: " + hotelId));
     }
 
-    @GetMapping("{hotelId}/details")
-    public HotelDetailsDTO getHotelDetailsHandler(@PathVariable int hotelId) {
-        HotelDetailsDTO hotelDetails = hotelService.getHotelDetails(hotelId);
-        if (hotelDetails == null) {
-            throw new ResourceNotFoundException("No hotel with id: " + hotelId);
-        }
-        return hotelDetails;
+    @PostMapping("/filter")
+    public List<Hotel> filterHotels(@RequestBody HotelFilterDTO filter) {
+        return hotelService.filterHotels(filter);
     }
 
     @PutMapping("{hotelId}")

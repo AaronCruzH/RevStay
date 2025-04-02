@@ -1,6 +1,7 @@
 package com.revature.stay.services;
 
 
+import com.revature.stay.dto.request.HotelFilterDTO;
 import com.revature.stay.models.Hotel;
 import com.revature.stay.repos.HotelDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,15 @@ public class HotelService {
 
     public Optional<Hotel> getHotelById(int hotelId){
         return hotelDAO.findById(hotelId);
+    }
+
+    // filters
+    public List<Hotel> filterHotels(HotelFilterDTO filter) {
+        if (filter.getName() == null && filter.getCountry() == null && filter.getState() == null && filter.getCity() == null) {
+            return hotelDAO.findAll();
+        } else {
+            return hotelDAO.findHotelsByFilter(filter.getName(), filter.getCountry(), filter.getState(), filter.getCity());
+        }
     }
 
     // PUT
