@@ -2,6 +2,7 @@ package com.revature.stay.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,11 +11,13 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roomID;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomInventory> roomInventories;
+
     @Column(nullable = false)
     private RoomType type;
 
-    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.ALL)
-    private Set<Hotel> hotels;
     public Room() {
     }
 
