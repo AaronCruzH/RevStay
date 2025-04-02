@@ -13,7 +13,7 @@ public class HotelAmenity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int amenityId;
+    private int hotelAmenityId;
 
     @Column(nullable = false)
     private String name;
@@ -21,25 +21,29 @@ public class HotelAmenity {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     public HotelAmenity(){}
 
-    public HotelAmenity(int amenityId, String name, String description, Hotel hotel) {
-        this.amenityId = amenityId;
+    public HotelAmenity(int hotelAmenityId, String name, String description, String url, Hotel hotel) {
+        this.hotelAmenityId = hotelAmenityId;
         this.name = name;
         this.description = description;
+        this.url=url;
         this.hotel = hotel;
     }
 
-    public int getAmenityId() {
-        return amenityId;
+    public int getHotelAmenityId() {
+        return hotelAmenityId;
     }
 
-    public void setAmenityId(int amenityId) {
-        this.amenityId = amenityId;
+    public void setHotelAmenityId(int hotelAmenityId) {
+        this.hotelAmenityId = hotelAmenityId;
     }
 
     public String getName() {
@@ -56,6 +60,14 @@ public class HotelAmenity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Hotel getHotel() {
