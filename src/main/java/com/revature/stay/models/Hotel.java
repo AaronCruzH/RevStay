@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name ="hotels")
+@Table(name = "hotels")
 public class Hotel {
 
     @Id
@@ -16,8 +16,23 @@ public class Hotel {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, length = 30)
+    private String Country;
+
+    @Column(nullable = false, length = 30)
+    private String State;
+
+    @Column(nullable = false, length = 30)
+    private String City;
+
     @Column(nullable = false)
-    private String location;
+    private String street;
+
+    @Column(nullable = false, length = 10)
+    private String houseNumber;
+
+    @Column(nullable = false, length = 10)
+    private String postalCode;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelAmenity> amenities;
@@ -25,14 +40,21 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelImage> images;
 
-    public Hotel(){
+    public Hotel() {
 
     }
 
-    public Hotel(int hotelId, String name, String location) {
+    public Hotel(int hotelId, String name, String country, String state, String city, String street, String houseNumber, String postalCode, List<HotelAmenity> amenities, List<HotelImage> images) {
         this.hotelId = hotelId;
         this.name = name;
-        this.location = location;
+        Country = country;
+        State = state;
+        City = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.postalCode = postalCode;
+        this.amenities = amenities;
+        this.images = images;
     }
 
     public int getHotelId() {
@@ -51,12 +73,67 @@ public class Hotel {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCountry() {
+        return Country;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCountry(String country) {
+        Country = country;
     }
 
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public List<HotelAmenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<HotelAmenity> amenities) {
+        this.amenities = amenities;
+    }
+
+    public List<HotelImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<HotelImage> images) {
+        this.images = images;
+    }
 }
