@@ -12,11 +12,15 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roomID;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoomInventory> roomInventories;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
     @Column(nullable = false)
     private RoomType type;
+
+    @Column(nullable = false)
+    private int capacity;
 
     public Room() {
     }

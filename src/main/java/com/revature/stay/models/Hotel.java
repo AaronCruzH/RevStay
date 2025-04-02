@@ -40,7 +40,7 @@ public class Hotel {
     private List<HotelImage> images;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoomInventory> roomInventories;
+    private List<Room> rooms;
 
     public Hotel() {
 
