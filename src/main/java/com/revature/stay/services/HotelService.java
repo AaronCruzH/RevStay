@@ -1,13 +1,8 @@
 package com.revature.stay.services;
 
 
-import com.revature.stay.dtos.response.HotelDetailsDTO;
 import com.revature.stay.models.Hotel;
-import com.revature.stay.models.HotelAmenity;
-import com.revature.stay.models.HotelImage;
-import com.revature.stay.repos.HotelAmenityDAO;
 import com.revature.stay.repos.HotelDAO;
-import com.revature.stay.repos.HotelImageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +13,10 @@ import java.util.Optional;
 public class HotelService {
 
     private final HotelDAO hotelDAO;
-    private final HotelImageDAO hotelImageDAO;
-    private final HotelAmenityDAO hotelAmenityDAO;
 
     @Autowired
-    public HotelService(HotelDAO hotelDAO, HotelImageDAO hotelImageDAO, HotelAmenityDAO hotelAmenityDAO) {
+    public HotelService(HotelDAO hotelDAO) {
         this.hotelDAO = hotelDAO;
-        this.hotelImageDAO = hotelImageDAO;
-        this.hotelAmenityDAO = hotelAmenityDAO;
     }
 
     // Availability
@@ -43,19 +34,6 @@ public class HotelService {
         return hotelDAO.findAll();
     }
 
-    // RETRIEVE BY ID WITH DETAILS
-
-    public HotelDetailsDTO getHotelDetails(int hotelId) {
-        Optional<Hotel> optionalHotel = hotelDAO.findById(hotelId);
-        if (optionalHotel.isPresent()) {
-            Hotel hotel = optionalHotel.get();
-            List<HotelImage> images = hotelImageDAO.findByHotelId(hotelId);
-            List<HotelAmenity> amenities = hotelAmenityDAO.findByHotelId(hotelId);
-            return new HotelDetailsDTO(hotel, images, amenities);
-        }
-        return null;
-    }
-
     // RETRIEVE BY ID
 
     public Optional<Hotel> getHotelById(int hotelId){
@@ -66,7 +44,12 @@ public class HotelService {
     public Optional<Hotel> updateHotel(int hotelId, Hotel updatedHotel) {
         return hotelDAO.findById(hotelId).map(hotel -> {
             hotel.setName(updatedHotel.getName());
-            hotel.setLocation(updatedHotel.getLocation());
+            hotel.setCountry(updatedHotel.getCountry());
+            hotel.setState(updatedHotel.getState());
+            hotel.setCity(updatedHotel.getCity());
+            hotel.setStreet(updatedHotel.getStreet());
+            hotel.setHouseNumber(updatedHotel.getHouseNumber());
+            hotel.setPostalCode(updatedHotel.getPostalCode());
             return hotelDAO.save(hotel);
         });
     }
