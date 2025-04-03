@@ -35,6 +35,7 @@ public class RoomService {
             newRoom.setRoomType(updatedRoom.getRoomType());
             newRoom.setCapacity(updatedRoom.getCapacity());
             newRoom.setStatus(updatedRoom.getStatus());
+            newRoom.setPrice(updatedRoom.getPrice());
             return roomDAO.save(newRoom);
         } else {
             throw new ResourceNotFoundException("No room found with ID: "+roomId);

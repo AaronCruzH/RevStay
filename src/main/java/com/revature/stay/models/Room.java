@@ -20,6 +20,8 @@ public class Room {
     private int capacity;
     @Column(nullable = false)
     private int roomNumber;
+    @Column(nullable = false)
+    private float price;
     @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
 
@@ -36,18 +38,28 @@ public class Room {
                 ", hotel=" + hotel +
                 ", capacity=" + capacity +
                 ", roomNumber=" + roomNumber +
+                ", price=" + price +
                 ", roomType=" + roomType +
                 ", status=" + status +
                 '}';
     }
 
-    public Room(int roomID, Hotel hotel, int capacity, int roomNumber, RoomType roomType, RoomStatus status) {
+    public Room(int roomID, Hotel hotel, int capacity, int roomNumber, float price, RoomType roomType, RoomStatus status) {
         this.roomID = roomID;
         this.hotel = hotel;
         this.capacity = capacity;
         this.roomNumber = roomNumber;
+        this.price = price;
         this.roomType = roomType;
         this.status = status;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getPrice() {
+        return price;
     }
 
     public int getRoomID() {
