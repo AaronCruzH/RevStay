@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface RoomDAO extends JpaRepository<Room,Integer> {
 
-    @Query(value = "SELECT * FROM rooms WHERE hotel_id = %:hotelId%",nativeQuery = true)
-    List<Room> getRoomsByHotelId(@Param("hotelId") int hotelId);
+    //@Query(value = "SELECT * FROM rooms WHERE hotel_id = %:hotelId%",nativeQuery = true)
+    @Query("SELECT r FROM Room r WHERE r.hotel.hotelId = :hotelID")
+    List<Room> getRoomsByHotelId(@Param("hotelID") int hotelId);
 }
