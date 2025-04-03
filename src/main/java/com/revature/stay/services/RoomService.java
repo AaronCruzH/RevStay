@@ -57,4 +57,8 @@ public class RoomService {
             throw new ResourceNotFoundException("No room found with ID: "+roomId);
         }
     }
+
+    public List<Room> getRoomsByHotelId(int hotelId){
+        return roomDAO.getRoomsByHotelId(hotelId);
+    }
 }
