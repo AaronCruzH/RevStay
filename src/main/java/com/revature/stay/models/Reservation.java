@@ -1,6 +1,5 @@
 package com.revature.stay.models;
 
-import ch.qos.logback.core.net.server.Client;
 import jakarta.persistence.*;
 
 import java.util.Date;
