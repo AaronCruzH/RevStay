@@ -48,4 +48,13 @@ public class RoomService {
     public Optional<Room> getRoomById(int roomId){
         return roomDAO.findById(roomId);
     }
+
+    public void deleteRoom(int roomId){
+        if(roomDAO.existsById(roomId))
+        {
+            roomDAO.deleteById(roomId);
+        }else {
+            throw new ResourceNotFoundException("No room found with ID: "+roomId);
+        }
+    }
 }

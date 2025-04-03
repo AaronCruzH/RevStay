@@ -51,9 +51,14 @@ public class RoomController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Room> getAllRooms(){
-        return roomService.getAllRooms()
+        return roomService.getAllRooms();
     }
 
+    @DeleteMapping("{roomId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCreatureHandler(@PathVariable int roomId){
+        roomService.deleteRoom(roomId);
+    }
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> resourceNotFoundHandler(ResourceNotFoundException e) {
