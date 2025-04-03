@@ -2,6 +2,7 @@ package com.revature.stay.services;
 
 import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.Room;
+import com.revature.stay.models.RoomStatus;
 import com.revature.stay.models.RoomType;
 import com.revature.stay.repos.RoomDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,24 @@ public class RoomService {
         } else {
             throw new ResourceNotFoundException("No room found with ID: "+roomId);
         }
+    }
+
+    public Room updateRoomStatus(int roomId, String updatedStatus){
+
+        Optional<Room> roomToUpdate = roomDAO.findById(roomId);
+
+        if(roomToUpdate.isEmpty())        {
+            throw new ResourceNotFoundException("No room found with ID: "+roomId);
+        }
+
+        if(!RoomStatus.isContained(updatedStatus)){
+            throw new ResourceNotFoundException("Valid status " +updatedStatus+" not found");
+        }
+
+        Room updatedRoom = roomToUpdate.get();
+        updatedRoom.setStatus(RoomStatus.valueOf(updatedStatus));
+
+        return roomDAO.save(updatedRoom);
     }
 
     public List<Room> getAllRooms(){
