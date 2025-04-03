@@ -1,6 +1,9 @@
 package com.revature.stay;
 
 
+import com.revature.stay.models.Reservation;
+import com.revature.stay.models.ReservationStatus;
+import com.revature.stay.services.ReservationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,6 +61,7 @@ public class ReservationServiceTest {
     public void stayAlreadyReservedShouldThrowException() {
         Reservation reservationToBeRegistered = new Reservation(
                 2,  // userId
+                1,
                 2,  // totalGuests
                 Date.from(LocalDate.now()  // checkIn
                         .plusDays(3)
