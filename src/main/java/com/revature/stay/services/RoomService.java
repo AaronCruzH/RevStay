@@ -37,7 +37,7 @@ public class RoomService {
             newRoom.setStatus(updatedRoom.getStatus());
             return roomDAO.save(newRoom);
         } else {
-            throw new ResourceNotFoundException("No room found with ID: "+updatedRoom.getRoomID());
+            throw new ResourceNotFoundException("No room found with ID: "+roomId);
         }
     }
 

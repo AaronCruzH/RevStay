@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,8 +45,13 @@ public class RoomController {
     @PutMapping("update/{roomId}")
     @ResponseStatus(HttpStatus.OK)
     public Room updateRoom(@PathVariable int roomId, @RequestBody Room updatedRoom) {
-        System.out.println(roomId);
         return roomService.uptadeRoom(roomId, updatedRoom);
+    }
+
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public List<Room> getAllRooms(){
+        return roomService.getAllRooms()
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
