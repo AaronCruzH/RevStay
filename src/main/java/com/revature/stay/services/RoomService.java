@@ -1,5 +1,6 @@
 package com.revature.stay.services;
 
+import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.Room;
 import com.revature.stay.models.RoomType;
 import com.revature.stay.repos.RoomDAO;
@@ -22,6 +23,22 @@ public class RoomService {
     public Room createRoom(Room roomCreationRequest){
         System.out.println(roomCreationRequest.toString());
         return roomDAO.save(roomCreationRequest);
+    }
+
+    public Room uptadeRoom(int roomId, Room updatedRoom){
+        System.out.println(roomId);
+        Optional<Room> existingRoom = roomDAO.findById(roomId);
+
+        if(existingRoom.isPresent()){
+            Room newRoom = existingRoom.get();
+            newRoom.setRoomNumber(updatedRoom.getRoomNumber());
+            newRoom.setRoomType(updatedRoom.getRoomType());
+            newRoom.setCapacity(updatedRoom.getCapacity());
+            newRoom.setStatus(updatedRoom.getStatus());
+            return roomDAO.save(newRoom);
+        } else {
+            throw new ResourceNotFoundException("No room found with ID: "+updatedRoom.getRoomID());
+        }
     }
 
     public List<Room> getAllRooms(){

@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping("rooms")
 public class RoomController {
     private final RoomService roomService;
-    private  final HotelService hotelService;
+    private final HotelService hotelService;
 
 
     @Autowired
@@ -28,23 +28,29 @@ public class RoomController {
 
     @PostMapping("register/{hotelId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Room createRoomHandler(@PathVariable int hotelId, @RequestBody Room room){
+    public Room createRoomHandler(@PathVariable int hotelId, @RequestBody Room room) {
 
         Optional<Hotel> hotel = hotelService.getHotelById(hotelId);
 
-        if(hotel.isEmpty())
-        {
-            throw new ResourceNotFoundException("No Hotel found with id: "+hotelId);
-        }else {
+        if (hotel.isEmpty()) {
+            throw new ResourceNotFoundException("No Hotel found with id: " + hotelId);
+        } else {
             room.setHotel(hotel.get());
         }
         //TODO add session and user role validation
         return roomService.createRoom(room);
     }
 
+    @PutMapping("update/{roomId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Room updateRoom(@PathVariable int roomId, @RequestBody Room updatedRoom) {
+        System.out.println(roomId);
+        return roomService.uptadeRoom(roomId, updatedRoom);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> resourceNotFoundHandler(ResourceNotFoundException e){
+    public Map<String, String> resourceNotFoundHandler(ResourceNotFoundException e) {
         return Map.of(
                 "error", e.getMessage()
         );
