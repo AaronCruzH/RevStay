@@ -1,6 +1,7 @@
 package com.revature.stay.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -28,14 +29,16 @@ public class Reservation {
     @Column(nullable = false)
     private Date checkOut;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private Date createdAt;
 
     @Column(nullable = false)
     private float total;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReservationStatus reservationStatus;
+    private ReservationStatus status = ReservationStatus.PENDING;
 
     public Reservation() {
     }
@@ -49,7 +52,7 @@ public class Reservation {
         this.checkOut = checkOut;
         this.createdAt = createdAt;
         this.total = total;
-        this.reservationStatus = reservationStatus;
+        this.status = reservationStatus;
     }
 
     public Reservation(Client client, Room room, int totalGuests, Date checkIn, Date checkOut) {
@@ -58,6 +61,7 @@ public class Reservation {
         this.totalGuests = totalGuests;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+//        this.status = ReservationStatus.PENDING;
     }
 
     public Date getCheckOut() {
@@ -125,10 +129,10 @@ public class Reservation {
     }
 
     public ReservationStatus getReservationStatus() {
-        return reservationStatus;
+        return status;
     }
 
     public void setReservationStatus(ReservationStatus reservationStatus) {
-        this.reservationStatus = reservationStatus;
+        this.status = reservationStatus;
     }
 }
