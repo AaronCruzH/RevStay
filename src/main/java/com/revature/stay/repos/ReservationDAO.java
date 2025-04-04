@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Date;
 
 public interface ReservationDAO extends JpaRepository<Reservation, Integer> {
-    @Query()
-    boolean checkStayAvailability(int hotelId, RoomType roomType, int totalGuests, Date checkIn, Date checkOut);
+//    @Query()
+//    boolean checkStayAvailability(int hotelId, RoomType roomType, int totalGuests, Date checkIn, Date checkOut);
 }
