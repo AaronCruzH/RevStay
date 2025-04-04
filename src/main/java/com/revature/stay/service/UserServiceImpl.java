@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsersByRole(String role) {
-        // Filter users by role
         return userRepository.findAll().stream()
                 .filter(user -> user.getRole().equals(role))
                 .collect(Collectors.toList());
@@ -48,22 +47,16 @@ public class UserServiceImpl implements UserService {
     public User updateUser(Long id, User userDetails) {
         User user = getUserById(id);
 
-        // Update user fields
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
 
-        // Only update password if it's provided
         if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
         }
-
-        // Role should typically not be updated this way to prevent privilege escalation
-        // but we'll include it for completeness
         if (userDetails.getRole() != null) {
             user.setRole(userDetails.getRole());
         }
-
         return userRepository.save(user);
     }
 

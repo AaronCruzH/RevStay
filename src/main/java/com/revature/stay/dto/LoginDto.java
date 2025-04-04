@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class LoginDto {
     private String email;
     private String password;
-    private String userType; // "user" or "hotelOwner"
+    private String userType;
 }

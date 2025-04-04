@@ -14,14 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Role {
 
-    // Constants for available roles
     public static final String USER = "USER";
     public static final String OWNER = "OWNER";
     public static final String ADMIN = "ADMIN";
 
     private String name;
 
-    // Check if a role is a valid system role
     public static boolean isValidRole(String role) {
         return USER.equals(role) || OWNER.equals(role) || ADMIN.equals(role);
     }

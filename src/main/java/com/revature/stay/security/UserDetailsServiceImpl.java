@@ -28,16 +28,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
+        Collection<? extends GrantedAuthority> authorities = getAuthorities(user.getRole());
+        // Debug logging
+        //System.out.println("User found: " + user.getEmail());
+        //System.out.println("User role: " + user.getRole());
+        //System.out.println("Authorities: " + authorities);
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                getAuthorities(user.getRole())
+                authorities
         );
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+        //authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 }

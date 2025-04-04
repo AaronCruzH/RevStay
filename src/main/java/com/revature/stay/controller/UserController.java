@@ -6,6 +6,7 @@ import com.revature.stay.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,8 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers(Authentication authentication) {
+        System.out.println("getAllUsers method called!");
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
@@ -57,8 +59,4 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<User> getCurrentUserProfile() {
-        return ResponseEntity.ok(userService.getUserById(1L));
-    }
 }

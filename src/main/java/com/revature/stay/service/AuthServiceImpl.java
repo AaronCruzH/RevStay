@@ -46,7 +46,6 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtTokenProvider.generateToken(authentication);
 
-        // Get the user to determine their role
         User user = userRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -59,19 +58,16 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String registerUser(UserRegistrationDto registrationDto) {
-        // Check if email already exists
         if (userRepository.existsByEmail(registrationDto.getEmail())) {
             throw new RuntimeException("Email already exists!");
         }
 
-        // Create new user's account
         User user = new User();
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
         user.setEmail(registrationDto.getEmail());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
 
-        // Set role (default to USER if not specified)
         user.setRole(registrationDto.getRole() != null ? registrationDto.getRole() : "USER");
 
         userRepository.save(user);
@@ -81,12 +77,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String registerHotelOwner(HotelOwnerRegistrationDto registrationDto) {
-        // Check if email already exists
         if (userRepository.existsByEmail(registrationDto.getEmail())) {
             throw new RuntimeException("Email already exists!");
         }
 
-        // Create new user with OWNER role
         User user = new User();
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
@@ -95,9 +89,6 @@ public class AuthServiceImpl implements AuthService {
         user.setRole("OWNER");
 
         userRepository.save(user);
-
-        // Additional hotel owner details could be saved in a separate table
-        // with a foreign key to the user_id
 
         return "Hotel owner registered successfully!";
     }

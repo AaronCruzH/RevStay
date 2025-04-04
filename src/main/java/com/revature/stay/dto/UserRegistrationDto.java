@@ -13,5 +13,5 @@ public class UserRegistrationDto {
     private String lastName;
     private String email;
     private String password;
-    private String role; // Will be "USER" by default, could be "OWNER" for hotel owners
+    private String role;
 }
