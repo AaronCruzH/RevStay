@@ -1,4 +1,4 @@
-package com.revature.stay.controller;
+package com.revature.stay.controllers;
 
 import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.HotelAmenity;

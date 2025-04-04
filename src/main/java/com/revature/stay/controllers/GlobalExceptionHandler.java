@@ -1,4 +1,4 @@
-package com.revature.stay.controller;
+package com.revature.stay.controllers;
 
 import com.revature.stay.exceptions.ForbiddenActionException;
 import com.revature.stay.exceptions.UnauthenticatedException;
