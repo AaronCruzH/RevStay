@@ -22,7 +22,6 @@ public class RoomService {
     }
 
     public Room createRoom(Room roomCreationRequest){
-        System.out.println(roomCreationRequest.toString());
         return roomDAO.save(roomCreationRequest);
     }
 
@@ -35,7 +34,7 @@ public class RoomService {
             newRoom.setRoomNumber(updatedRoom.getRoomNumber());
             newRoom.setRoomType(updatedRoom.getRoomType());
             newRoom.setCapacity(updatedRoom.getCapacity());
-            newRoom.setStatus(updatedRoom.getStatus());
+            //newRoom.setStatus(updatedRoom.getStatus());
             newRoom.setPrice(updatedRoom.getPrice());
             return roomDAO.save(newRoom);
         } else {
@@ -43,6 +42,7 @@ public class RoomService {
         }
     }
 
+    /*
     public Room updateRoomStatus(int roomId, String updatedStatus){
 
         Optional<Room> roomToUpdate = roomDAO.findById(roomId);
@@ -59,7 +59,7 @@ public class RoomService {
         updatedRoom.setStatus(RoomStatus.valueOf(updatedStatus));
 
         return roomDAO.save(updatedRoom);
-    }
+    }*/
 
     public List<Room> getAllRooms(){
         return roomDAO.findAll();
