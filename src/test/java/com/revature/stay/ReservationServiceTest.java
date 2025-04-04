@@ -3,6 +3,8 @@ package com.revature.stay;
 
 import com.revature.stay.models.Reservation;
 import com.revature.stay.models.ReservationStatus;
+import com.revature.stay.repos.ReservationDAO;
+import com.revature.stay.repos.RoomDAO;
 import com.revature.stay.services.ReservationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,10 @@ import static org.mockito.Mockito.when;
 public class ReservationServiceTest {
 
     @Mock
-    private ReservationDAO mockedReservationDAO;
+    private ReservationDAO mockReservationDAO;
+
+    @Mock
+    private RoomDAO mockRoomDAO;
 
     @InjectMocks
     private ReservationService reservationService;
@@ -34,6 +39,7 @@ public class ReservationServiceTest {
 
     @BeforeEach
     void setup() {
+
         mockReservation = new Reservation(
             1,
             1,
@@ -75,7 +81,7 @@ public class ReservationServiceTest {
                         .toInstant())
         );
 
-        when(reservationService.checkStayAvailability(
+        when(mockReservationDAO.checkStayAvailability(
             reservationToBeRegistered.getTotalGuests(),
             reservationToBeRegistered.getCheckIn(),
             reservationToBeRegistered.getCheckOut()
@@ -87,7 +93,8 @@ public class ReservationServiceTest {
     @Test
     public void excessiveGuestsShouldReturnException() {
         Reservation reservationToBeRegistered = new Reservation(
-                1,  // userId
+                1,  // userId,
+                1,
                 9,  // totalGuests
                 Date.from(LocalDate.now()  // checkIn
                         .plusDays(3)
@@ -101,7 +108,7 @@ public class ReservationServiceTest {
                         .toInstant())
         );
 
-        when(reservationService.checkStayAvailability(
+        when(mockReservationDAO.checkStayAvailability(
                 reservationToBeRegistered.getTotalGuests(),
                 reservationToBeRegistered.getCheckIn(),
                 reservationToBeRegistered.getCheckOut()
@@ -114,7 +121,8 @@ public class ReservationServiceTest {
     @Test
     public void availableStayShouldReturnReservation() {
         Reservation reservationToBeRegistered = new Reservation(
-                2,  // userId
+                2,  // userId,
+                1,
                 2,  // totalGuests
                 Date.from(LocalDate.now()  // checkIn
                         .plusDays(12)
@@ -128,7 +136,7 @@ public class ReservationServiceTest {
                         .toInstant())
         );
 
-        when(reservationService.checkStayAvailability(
+        when(mockReservationDAO.checkStayAvailability(
                 reservationToBeRegistered.getTotalGuests(),
                 reservationToBeRegistered.getCheckIn(),
                 reservationToBeRegistered.getCheckOut()
