@@ -8,6 +8,7 @@ import com.revature.stay.services.HotelService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class HotelController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     public List<Hotel> getAllHotelsHandler(){
         return hotelService.getAllHotels();
     }
@@ -57,15 +59,8 @@ public class HotelController {
     }
 
     @PutMapping("{hotelId}")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('OWNER') and #id == authentication.principal.id)")
     public Optional<Hotel> updateHotelHandler(@PathVariable int hotelId, @RequestBody Hotel updatedHotel, HttpSession session) {
-//        if (session.getAttribute("userId") == null) {
-//            throw new UnauthenticatedException("User is not authenticated");
-//        }
-//
-//        if (session.getAttribute("role") != Role.OWNER) {
-//            throw new ForbiddenActionException("You must be an owner to modify this hotel");
-//        }
-
         if(hotelService.checkHotelExisting(hotelId)){
             throw new ResourceNotFoundException("No hotel with id: " + hotelId);
         }
@@ -75,15 +70,8 @@ public class HotelController {
 
     @DeleteMapping("{hotelId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('OWNER') and #id == authentication.principal.id)")
     public void deleteHotelHandler(@PathVariable int hotelId, HttpSession session) {
-//        if (session.getAttribute("userId") == null) {
-//            throw new UnauthenticatedException("User is not authenticated");
-//        }
-//
-//        if (session.getAttribute("role") != Role.OWNER) {
-//            throw new ForbiddenActionException("You must be an owner to delete this hotel");
-//        }
-
         if(hotelService.checkHotelExisting(hotelId)){
             throw new ResourceNotFoundException("No hotel with id: " + hotelId);
         }
