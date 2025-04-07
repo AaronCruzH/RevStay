@@ -25,9 +25,9 @@ public class Room {
     @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
 
-    @Enumerated(value = EnumType.STRING)
+   /* @Enumerated(value = EnumType.STRING)
     private RoomStatus status;
-
+*/
     public Room() {
     }
 
@@ -40,18 +40,18 @@ public class Room {
                 ", roomNumber=" + roomNumber +
                 ", price=" + price +
                 ", roomType=" + roomType +
-                ", status=" + status +
+               // ", status=" + status +
                 '}';
     }
 
-    public Room(int roomID, Hotel hotel, int capacity, int roomNumber, float price, RoomType roomType, RoomStatus status) {
+    public Room(int roomID, Hotel hotel, int capacity, int roomNumber, float price, RoomType roomType) {
         this.roomID = roomID;
         this.hotel = hotel;
         this.capacity = capacity;
         this.roomNumber = roomNumber;
         this.price = price;
         this.roomType = roomType;
-        this.status = status;
+        //this.status = status;
     }
 
     public void setPrice(float price) {
@@ -64,14 +64,6 @@ public class Room {
 
     public int getRoomID() {
         return roomID;
-    }
-
-    public RoomType getType() {
-        return roomType;
-    }
-
-    public void setType(RoomType type) {
-        this.roomType = type;
     }
 
     public void setRoomID(int roomID) {
@@ -93,10 +85,10 @@ public class Room {
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
-
+/*
     public void setStatus(RoomStatus status) {
         this.status = status;
-    }
+    }*/
 
     public Hotel getHotel() {
         return hotel;
@@ -114,7 +106,7 @@ public class Room {
         return roomType;
     }
 
-    public RoomStatus getStatus() {
+  /*  public RoomStatus getStatus() {
         return status;
-    }
+    }*/
 }

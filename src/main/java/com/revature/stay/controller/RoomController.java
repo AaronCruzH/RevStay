@@ -48,11 +48,12 @@ public class RoomController {
         return roomService.uptadeRoom(roomId, updatedRoom);
     }
 
+    /*
     @PutMapping("update/{roomId}/{status}")
     @ResponseStatus(HttpStatus.OK)
     public Room updateRoomStatus(@PathVariable int roomId, @PathVariable String status){
         return roomService.updateRoomStatus(roomId,status);
-    }
+    }*/
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
