@@ -1,5 +1,7 @@
 package com.revature.stay.controller;
 
+import com.revature.stay.dto.request.RoomFilterDTO;
+import com.revature.stay.dto.response.RoomWithDetailsDTO;
 import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.Hotel;
 import com.revature.stay.models.Room;
@@ -7,7 +9,6 @@ import com.revature.stay.services.HotelService;
 import com.revature.stay.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,12 @@ public class RoomController {
         //TODO add session and user role validation
         return roomService.createRoom(room);
     }
+
+    @PostMapping("/filter")
+    public List<RoomWithDetailsDTO> filterRooms(@RequestBody RoomFilterDTO filter) {
+        return roomService.filterRoom(filter);
+    }
+
 
     @PutMapping("update/{roomId}")
     @ResponseStatus(HttpStatus.OK)
