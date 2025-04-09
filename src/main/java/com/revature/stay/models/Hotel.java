@@ -1,6 +1,5 @@
 package com.revature.stay.models;
 
-
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -39,6 +38,9 @@ public class Hotel {
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelImage> images;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> rooms;
 
     public Hotel() {
 
