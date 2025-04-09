@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("reservations")
@@ -26,5 +27,25 @@ public class ReservationController {
     @GetMapping
     public List<Reservation> getAllReservationsHandler() {
         return reservationService.getAllReservations();
+    }
+
+    @PutMapping("update")
+    public Optional<Reservation> updateReservationHandler(@RequestBody Reservation reservation) {
+        return reservationService.updateReservation(reservation);
+    }
+
+    @PutMapping("cancel/{reservationId}")
+    public Optional<Reservation> cancelReservationHandler(@PathVariable int reservationId) {
+        return reservationService.cancelReservation(reservationId);
+    }
+
+    @PutMapping("accept/{reservationId}")
+    public Optional<Reservation> acceptReservationHandler(@PathVariable int reservationId) {
+        return reservationService.acceptReservation(reservationId);
+    }
+
+    @PutMapping("reject/{reservationId}")
+    public Optional<Reservation> rejectReservationHandler(@PathVariable int reservationId) {
+        return reservationService.rejectReservation(reservationId);
     }
 }
