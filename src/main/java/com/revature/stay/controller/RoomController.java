@@ -69,6 +69,12 @@ public class RoomController {
         return roomService.getRoomsByHotelId(hotelId);
     }
 
+    @GetMapping("/id/{roomId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Room getRoomById(@PathVariable int roomId){
+        return roomService.getRoomById(roomId);
+    }
+
     @DeleteMapping("{roomId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCreatureHandler(@PathVariable int roomId){
