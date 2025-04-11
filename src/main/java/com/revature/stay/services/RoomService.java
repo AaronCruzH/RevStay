@@ -65,15 +65,8 @@ public class RoomService {
         return roomDAO.findAll();
     }
 
-    public Room getRoomById(int roomId){
-        Optional<Room> roomFound =  roomDAO.findById(roomId);
-        if(roomFound.isEmpty())
-        {
-            return null;
-        }
-        else {
-            return roomFound.get();
-        }
+    public Optional<Room> getRoomById(int roomId){
+        return roomDAO.findById(roomId);
     }
 
     public void deleteRoom(int roomId){
