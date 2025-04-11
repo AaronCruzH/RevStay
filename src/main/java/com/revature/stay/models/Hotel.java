@@ -12,6 +12,10 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hotelId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
     @Column(nullable = false)
     private String name;
 
@@ -65,6 +69,14 @@ public class Hotel {
 
     public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public String getName() {

@@ -26,10 +26,10 @@ public interface RoomDAO extends JpaRepository<Room,Integer> {
             "AND (:state IS NULL OR h.state ILIKE %:state%) " +
             "AND (:city IS NULL OR h.city ILIKE %:city%) " +
             "AND (:roomId IS NULL OR r.roomID = :roomId) " +
-            "AND (:roomTypeId IS NULL OR rt.hotelRoomTypeId = :roomTypeId) " +
+//            "AND (:roomTypeId IS NULL OR rt.hotelRoomTypeId = :roomTypeId) " +
             "AND (:capacity IS NULL OR r.capacity >= :capacity) " +
-            "AND (:priceMin IS NULL OR rt.price >= :priceMin) " +
-            "AND (:priceMax IS NULL OR rt.price <= :priceMax) " +
+//            "AND (:priceMin IS NULL OR rt.price >= :priceMin) " +
+//            "AND (:priceMax IS NULL OR rt.price <= :priceMax) " +
             "AND NOT EXISTS (" +
             "   SELECT 1 FROM Reservation re " +
             "   WHERE re.room.roomID = r.roomID " +
