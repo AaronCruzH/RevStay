@@ -31,6 +31,8 @@ public class ReservationController {
     @PostMapping
 //    @PreAuthorize("#id == authentication.principal.id")
     public Reservation createReservationHandler(@RequestBody Reservation reservation) {
+        User currentUser = userService.getUserByEmail(AuthUtil.getCurrentUserEmail());
+        reservation.setUser(currentUser);
         return reservationService.createReservation(reservation);
     }
 
