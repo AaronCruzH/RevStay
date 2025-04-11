@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -21,9 +22,9 @@ public interface RoomDAO extends JpaRepository<Room,Integer> {
             "JOIN FETCH r.hotel h " +
             "WHERE (:hotelId IS NULL OR h.hotelId = :hotelId) " +
             "AND (:name IS NULL OR h.name ILIKE %:name%) " +
-            "AND (:country IS NULL OR h.country ILIKE %:country%) " +
-            "AND (:state IS NULL OR h.state ILIKE %:state%) " +
-            "AND (:city IS NULL OR h.city ILIKE %:city%) " +
+            "AND (:country IS NULL OR h.Country ILIKE %:country%) " +
+            "AND (:state IS NULL OR h.State ILIKE %:state%) " +
+            "AND (:city IS NULL OR h.City ILIKE %:city%) " +
             "AND (:roomId IS NULL OR r.roomID = :roomId) " +
             "AND (:roomTypeId IS NULL OR r.roomType = :roomTypeId) " +
             "AND (:capacity IS NULL OR r.capacity >= :capacity) " +
