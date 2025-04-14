@@ -5,6 +5,8 @@ import com.revature.stay.dto.request.HotelFilterDTO;
 import com.revature.stay.exceptions.ResourceNotFoundException;
 import com.revature.stay.models.Hotel;
 import com.revature.stay.services.HotelService;
+import com.revature.stay.services.UserService;
+import com.revature.stay.utils.AuthUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,12 @@ import java.util.Optional;
 public class HotelController {
 
     private final HotelService hotelService;
+    private final UserService userService;
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public HotelController(HotelService hotelService, UserService userService) {
         this.hotelService = hotelService;
+        this.userService = userService;
     }
 
     @PostMapping
@@ -37,6 +41,7 @@ public class HotelController {
 //        if (session.getAttribute("role") != Role.OWNER){
 //            throw new ForbiddenActionException("You must be a teacher to access this");
 //        }
+        hotel.setOwner(userService.getUserByEmail(AuthUtil.getCurrentUserEmail()));
 
         return hotelService.createHotel(hotel);
     }

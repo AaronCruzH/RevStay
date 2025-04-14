@@ -22,8 +22,12 @@ public class ReservationService {
         return reservationDAO.save(reservation);
     }
 
-    public List<Reservation> getAllReservations() {
-        return reservationDAO.findAll();
+    public List<Reservation> getReservationsByUserId(Long userId) {
+        return reservationDAO.findByUserId(userId);
+    }
+
+    public List<Reservation> getReservationsByHotelOwnerId(Long userId) {
+        return reservationDAO.findByHotelOwnerId(userId);
     }
 
     public Optional<Reservation> updateReservation(Reservation updateReservation) {
