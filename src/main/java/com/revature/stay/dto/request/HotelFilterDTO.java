@@ -5,6 +5,7 @@ public class HotelFilterDTO {
     private String country;
     private String state;
     private String city;
+    private Integer owner;
 
     public HotelFilterDTO(){}
 
@@ -45,5 +46,13 @@ public class HotelFilterDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Integer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Integer owner) {
+        this.owner = owner;
     }
 }
