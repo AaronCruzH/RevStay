@@ -13,9 +13,9 @@ public interface HotelDAO extends JpaRepository<Hotel, Integer> {
 
     @Query("SELECT h FROM Hotel h WHERE " +
             "(:name is null or h.name ILIKE %:name%) AND " +
-            "(:country is null or h.Country ILIKE :country) AND " +
-            "(:state is null or h.State ILIKE :state) AND " +
-            "(:city is null or h.City ILIKE :city)")
+            "(:country is null or h.country ILIKE :country) AND " +
+            "(:state is null or h.state ILIKE :state) AND " +
+            "(:city is null or h.city ILIKE :city)")
     List<Hotel> findHotelsByFilter(
             @Param("name") String name,
             @Param("country") String country,

@@ -12,17 +12,21 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hotelId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, length = 30)
-    private String Country;
+    private String country;
 
     @Column(nullable = false, length = 30)
-    private String State;
+    private String state;
 
     @Column(nullable = false, length = 30)
-    private String City;
+    private String city;
 
     @Column(nullable = false)
     private String street;
@@ -49,9 +53,9 @@ public class Hotel {
     public Hotel(int hotelId, String name, String country, String state, String city, String street, String houseNumber, String postalCode, List<HotelAmenity> amenities, List<HotelImage> images) {
         this.hotelId = hotelId;
         this.name = name;
-        Country = country;
-        State = state;
-        City = city;
+        this.country = country;
+        this.state = state;
+        this.city = city;
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;
@@ -67,6 +71,14 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public String getName() {
         return name;
     }
@@ -76,27 +88,27 @@ public class Hotel {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 
     public String getState() {
-        return State;
+        return state;
     }
 
     public void setState(String state) {
-        State = state;
+        this.state = state;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getStreet() {

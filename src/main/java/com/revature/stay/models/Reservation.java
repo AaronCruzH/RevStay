@@ -13,8 +13,8 @@ public class Reservation {
     private int reservationId;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -43,9 +43,9 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int reservationId, Client client, Room room, int totalGuests, Date checkIn, Date checkOut, Date createdAt, float total, ReservationStatus reservationStatus) {
+    public Reservation(int reservationId, User user, Room room, int totalGuests, Date checkIn, Date checkOut, Date createdAt, float total, ReservationStatus reservationStatus) {
         this.reservationId = reservationId;
-        this.client = client;
+        this.user = user;
         this.room = room;
         this.totalGuests = totalGuests;
         this.checkIn = checkIn;
@@ -55,8 +55,8 @@ public class Reservation {
         this.status = reservationStatus;
     }
 
-    public Reservation(Client client, Room room, int totalGuests, Date checkIn, Date checkOut) {
-        this.client = client;
+    public Reservation(User user, Room room, int totalGuests, Date checkIn, Date checkOut) {
+        this.user = user;
         this.room = room;
         this.totalGuests = totalGuests;
         this.checkIn = checkIn;
@@ -80,12 +80,12 @@ public class Reservation {
         this.reservationId = reservationId;
     }
 
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Room getRoom() {

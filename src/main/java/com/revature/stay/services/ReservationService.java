@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -21,26 +22,41 @@ public class ReservationService {
         return reservationDAO.save(reservation);
     }
 
-    public List<Reservation> getAllReservations() {
-        return reservationDAO.findAll();
+    public List<Reservation> getReservationsByUserId(Long userId) {
+        return reservationDAO.findByUserId(userId);
     }
 
-    public Reservation updateReservation(Reservation reservation) {
-        return reservationDAO.save(reservation);
+    public List<Reservation> getReservationsByHotelOwnerId(Long userId) {
+        return reservationDAO.findByHotelOwnerId(userId);
     }
 
-    public Reservation cancelReservation(Reservation reservation) {
-        reservation.setReservationStatus(ReservationStatus.CANCELED);
-        return reservationDAO.save(reservation);
+    public Optional<Reservation> updateReservation(Reservation updateReservation) {
+        return reservationDAO.findById(updateReservation.getReservationId()).map(reservation -> {
+            reservation.setTotalGuests(updateReservation.getTotalGuests());
+            reservation.setCheckIn(updateReservation.getCheckIn());
+            reservation.setCheckOut(updateReservation.getCheckOut());
+            return reservationDAO.save(reservation);
+        });
     }
 
-    public Reservation rejectReservation(Reservation reservation) {
-        reservation.setReservationStatus(ReservationStatus.REJECTED);
-        return reservationDAO.save(reservation);
+    public Optional<Reservation> cancelReservation(int reservationId) {
+        return reservationDAO.findById(reservationId).map(reservation -> {
+            reservation.setReservationStatus(ReservationStatus.CANCELED);
+            return reservationDAO.save(reservation);
+        });
     }
 
-    public Reservation acceptReservation(Reservation reservation) {
-        reservation.setReservationStatus(ReservationStatus.ACCEPTED);
-        return reservationDAO.save(reservation);
+    public Optional<Reservation> rejectReservation(int reservationId) {
+        return reservationDAO.findById(reservationId).map(reservation -> {
+            reservation.setReservationStatus(ReservationStatus.REJECTED);
+            return reservationDAO.save(reservation);
+        });
+    }
+
+    public Optional<Reservation> acceptReservation(int reservationId) {
+        return reservationDAO.findById(reservationId).map(reservation -> {
+            reservation.setReservationStatus(ReservationStatus.ACCEPTED);
+            return reservationDAO.save(reservation);
+        });
     }
 }
