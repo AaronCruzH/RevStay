@@ -3,7 +3,9 @@ package com.revature.stay.controller;
 
 import com.revature.stay.dto.request.HotelFilterDTO;
 import com.revature.stay.exceptions.ResourceNotFoundException;
+import com.revature.stay.exceptions.UnauthenticatedException;
 import com.revature.stay.models.Hotel;
+import com.revature.stay.models.Role;
 import com.revature.stay.services.HotelService;
 import com.revature.stay.services.UserService;
 import com.revature.stay.utils.AuthUtil;
@@ -59,7 +61,18 @@ public class HotelController {
     }
 
     @PostMapping("/filter")
-    public List<Hotel> filterHotels(@RequestBody HotelFilterDTO filter) {
+    public List<Hotel> filterHotels(@RequestBody HotelFilterDTO filter, HttpSession session) {
+
+        if (session.getAttribute("userId") == null){
+            throw new UnauthenticatedException("User is not authenticated");
+        }
+
+        // I need to make sure the role of the user is a teacher
+        if (session.getAttribute("role") == Role.OWNER){
+            filter.setOwner((Integer) session.getAttribute("userId"));
+        }else{
+            filter.setOwner(null);
+        }
         return hotelService.filterHotels(filter);
     }
 
