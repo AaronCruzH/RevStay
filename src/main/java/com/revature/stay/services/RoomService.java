@@ -129,6 +129,7 @@ public class RoomService {
 
     public Room getRoomById(int roomId){
         Optional<Room> roomFound =  roomDAO.findById(roomId);
+
         if(roomFound.isEmpty())
         {
             return null;
