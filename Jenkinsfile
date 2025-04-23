@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = "eduardoal85/revstay-auto:v1"
         EC2_HOST = "3.85.92.181"
         EC2_USER = "ec2-user"
-        SSH_KEY = credentials('ec2-ssh-key')
+        SSH_KEY = credentials('jenkins-ec2-key')
     }
 
     stages {
