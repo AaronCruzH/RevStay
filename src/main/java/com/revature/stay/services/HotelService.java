@@ -43,11 +43,7 @@ public class HotelService {
 
     // filters
     public List<Hotel> filterHotels(HotelFilterDTO filter) {
-        if (filter.getName() == null && filter.getCountry() == null && filter.getState() == null && filter.getCity() == null) {
-            return hotelDAO.findAll();
-        } else {
-            return hotelDAO.findHotelsByFilter(filter.getName(), filter.getCountry(), filter.getState(), filter.getCity());
-        }
+        return hotelDAO.findHotelsByFilter(filter.getName(), filter.getCountry(), filter.getState(), filter.getCity(), filter.getOwner());
     }
 
     // PUT

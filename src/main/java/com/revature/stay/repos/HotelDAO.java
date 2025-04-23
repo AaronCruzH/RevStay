@@ -13,14 +13,18 @@ public interface HotelDAO extends JpaRepository<Hotel, Integer> {
 
     @Query("SELECT h FROM Hotel h WHERE " +
             "(:name is null or h.name ILIKE %:name%) AND " +
-            "(:country is null or h.country ILIKE :country) AND " +
-            "(:state is null or h.state ILIKE :state) AND " +
-            "(:city is null or h.city ILIKE :city)")
+            "(:country is null or h.country ILIKE %:country%) AND " +
+            "(:state is null or h.state ILIKE %:state%) AND " +
+            "(:city is null or h.city ILIKE %:city%) AND"+
+            "(:userId is null OR EXISTS (" +
+            "   SELECT u FROM User u JOIN u.hotels h2 WHERE u.userId = :userId AND h2.hotelId = h.hotelId" +
+            "))")
     List<Hotel> findHotelsByFilter(
             @Param("name") String name,
             @Param("country") String country,
             @Param("state") String state,
-            @Param("city") String city
+            @Param("city") String city,
+            @Param("userId") Integer owner
     );
 
 }
