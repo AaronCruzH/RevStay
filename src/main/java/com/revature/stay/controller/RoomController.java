@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -67,21 +68,32 @@ public class RoomController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Room> getAllRooms(){
+    public List<Room> getAllRooms() {
         return roomService.getAllRooms();
     }
 
     @GetMapping("{hotelId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Room> getRoomsByHotel(@PathVariable int hotelId){
+    public List<Room> getRoomsByHotel(@PathVariable int hotelId) {
         return roomService.getRoomsByHotelId(hotelId);
+    }
+
+    @GetMapping("/id/{roomId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Room getRoomById(@PathVariable int roomId) {
+        Room foundRoom = roomService.getRoomById(roomId);
+        if (foundRoom == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found");
+        }
+        return foundRoom;
     }
 
     @DeleteMapping("{roomId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCreatureHandler(@PathVariable int roomId){
+    public void deleteCreatureHandler(@PathVariable int roomId) {
         roomService.deleteRoom(roomId);
     }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> resourceNotFoundHandler(ResourceNotFoundException e) {
