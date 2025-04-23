@@ -2,54 +2,52 @@ pipeline {
     agent any
 
     environment {
-        EC2_USER = 'ec2-user'
-        EC2_HOST = '3.85.92.181'
-        PRIVATE_KEY = credentials('ec2-ssh-key')
-        JAR_NAME = 'stay-0.0.1-SNAPSHOT.jar'
-        IMAGE_NAME = 'auto-revstay-image'
-        CONTAINER_NAME = 'auto-revstay-container'
+        DOCKER_IMAGE = "eduardoal85/revstay-auto:v1"
+        EC2_HOST = "3.85.92.181"
+        EC2_USER = "ec2-user"
+        SSH_KEY = credentials('ec2-ssh-key')
     }
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/AaronCruzH/RevStay'
-            }
-        }
-
-        stage('Build JAR with Maven') {
-            steps {
-                sh 'mvn clean package -DskipTests'
+                checkout scm
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+                }
             }
         }
 
-        stage('Save Docker Image & SCP to EC2') {
+        stage('Push Docker Image') {
             steps {
-                sh '''
-                docker save $IMAGE_NAME | bzip2 > image.tar.bz2
-                scp -i $PRIVATE_KEY image.tar.bz2 $EC2_USER@$EC2_HOST:~/
-                '''
+                script {
+                    withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
+                        sh "docker push ${DOCKER_IMAGE}"
+                    }
+                }
             }
         }
 
-        stage('Deploy to EC2') {
+        stage('Deploy to AWS EC2') {
             steps {
-                sh '''
-                ssh -i $PRIVATE_KEY $EC2_USER@$EC2_HOST 'bash -s' <<'ENDSSH'
-                    docker stop $CONTAINER_NAME || true
-                    docker rm $CONTAINER_NAME || true
-                    bunzip2 -f image.tar.bz2
-                    docker load < image.tar
-                    docker run -d -p 8080:8080 --name $CONTAINER_NAME $IMAGE_NAME
-                ENDSSH
-                '''
+                sshagent(['jenkins-ec2-key']) {
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} \"docker pull ${DOCKER_IMAGE} && docker stop revstay-backend-auto || true && docker rm revstay-backend-auto || true && docker run -d -p 8080:8080 --name revstay-backend-auto ${DOCKER_IMAGE}\""
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful!'
+        }
+        failure {
+            echo 'Deployment Failed!'
         }
     }
 }
